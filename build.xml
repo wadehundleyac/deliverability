@@ -22,6 +22,8 @@ Silverpop Deliverability Libary Ant build script
     <property file="${build.properties.project}" />
 	<!--Set this RPX-->
     <property name="use.rpx" value="true"/>
+
+
     
     <!-- Set base cm properties from env or using default values -->
           <property environment="env" />
@@ -50,26 +52,10 @@ Silverpop Deliverability Libary Ant build script
           <!-- Import of the common build properties and targets from build-common.xml -->
       <import file="${build-common-ant.dir}/build-common.xml" />
 
-    <!-- override jar-tests-published -->
-    <target name="jar-tests-published" depends="_jar-published-check" if="produce.jar.published">
-       <jar jarfile="${target.dir.publish}/${jar.name.tests.published}" compress="false">
-        <manifest>
-          <attribute name="Built-By" value="${user.name} ${TODAY}-${TSTAMP}" />
-          <attribute name="Build-Url" value="${env.BUILD_URL}" />
-          <section name="com/silverpop/${app.name}">
-            <attribute name="Specification-Version" value="${ivy.pubrevision}" />
-            <attribute name="Specification-Vendor" value="Silverpop" />
-            <attribute name="Implementation-Title" value="com.silverpop.${app.name}" />
-            <attribute name="Implementation-Version" value="${ivy.pubrevision}" />
-            <attribute name="Implementation-Vendor" value="Silverpop Systems." />
-          </section>
-          <section  name="svn info">
-            <attribute name="Revision" value="${svn.info.revision}" />
-          </section>
-        </manifest>
-        <metainf dir="${target.dir.publish}" includes="ivy.xml"/>
-       </jar>
-    </target>
-    <!-- test comment -->
+    <path id="compile.classpath.java">
+	<fileset dir="${basedir}/dist">
+		<include name="**/*.jar" />
+	</fileset>
+    </path>
 
 </project>
