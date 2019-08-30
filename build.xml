@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ IBM Confidential
+  ~ OCO Source Materials
+  ~ 5725-S87
+  ~ © Copyright IBM Corp. 2017
+  ~ The source code for this program is not published or otherwise
+  ~ divested of its trade secrets, irrespective of what has been
+  ~ deposited with the U.S. Copyright Office.
+  -->
+
+<!--
+Silverpop Deliverability Libary Ant build script 
+-->
+<project name="Deliverability" default="make" basedir=".">
+
+    <property name="app.name" value="deliverability" />
+    <property name="jar.internal" value="false"/>
+    <property name="jar.published" value="true"/>
+    <property name="src.dir.test" value="${basedir}/src/test/unit-test" />
+    <property name="build.properties.project" value="${basedir}/build.properties" />
+    <property file="${build.properties.project}" />
+	<!--Set this RPX-->
+    <property name="use.rpx" value="true"/>
+    
+    <!-- Set base cm properties from env or using default values -->
+          <property environment="env" />
+          <condition property="cm.home.dir" value="${env.CM_HOME}" else="${user.home}">
+            <isset property="env.CM_HOME"/>
+          </condition>  
+          <condition property="build-common.dir" value="${env.BUILD_COMMON_HOME}" else="${cm.home.dir}/build-common">
+            <isset property="env.BUILD_COMMON_HOME"/>
+          </condition>  
+          <condition property="build-common.release" value="${env.BUILD_COMMON_RELEASE}" else="master">
+            <isset property="env.BUILD_COMMON_RELEASE"/>
+          </condition>  
+          <!-- Check for the location of build-common ant files -->
+          <condition property="build-common-ant.dir" value="${build-common.dir}/${build-common.release}/ant">
+               <available file="${build-common.dir}/${build-common.release}/ant" type="dir"/>
+          </condition>  
+          <condition property="build-common-ant.dir" value="${build-common.dir}/ant">
+             <available file="${build-common.dir}/ant" type="dir"/>
+          </condition>  
+          <condition property="build-common-ant.dir" value="${basedir}/build-common/ant" >
+             <available file="${basedir}/build-common/ant" type="dir"/>
+          </condition>  
+          <condition property="build-common-ant.dir" value="${basedir}/build-common">
+             <available file="${basedir}/build-common" type="dir"/>
+          </condition>  
+          <!-- Import of the common build properties and targets from build-common.xml -->
+      <import file="${build-common-ant.dir}/build-common.xml" />
+
+    <!-- override jar-tests-published -->
+    <target name="jar-tests-published" depends="_jar-published-check" if="produce.jar.published">
+       <jar jarfile="${target.dir.publish}/${jar.name.tests.published}" compress="false">
+        <manifest>
+          <attribute name="Built-By" value="${user.name} ${TODAY}-${TSTAMP}" />
+          <attribute name="Build-Url" value="${env.BUILD_URL}" />
+          <section name="com/silverpop/${app.name}">
+            <attribute name="Specification-Version" value="${ivy.pubrevision}" />
+            <attribute name="Specification-Vendor" value="Silverpop" />
+            <attribute name="Implementation-Title" value="com.silverpop.${app.name}" />
+            <attribute name="Implementation-Version" value="${ivy.pubrevision}" />
+            <attribute name="Implementation-Vendor" value="Silverpop Systems." />
+          </section>
+          <section  name="svn info">
+            <attribute name="Revision" value="${svn.info.revision}" />
+          </section>
+        </manifest>
+        <metainf dir="${target.dir.publish}" includes="ivy.xml"/>
+       </jar>
+    </target>
+    <!-- test comment -->
+
+</project>

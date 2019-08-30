@@ -1,0 +1,47 @@
+    <!--
+  ~ IBM Confidential
+  ~ OCO Source Materials
+  ~ 5725-S87
+  ~ © Copyright IBM Corp. 2017
+  ~ The source code for this program is not published or otherwise
+  ~ divested of its trade secrets, irrespective of what has been
+  ~ deposited with the U.S. Copyright Office.
+  -->
+    <!--
+    ~ CONFIDENTIAL AND PROPRIETARY
+    ~ Copyright 2009 Silverpop Systems, Inc.  All rights reserved.
+    ~ The contents of this material are confidential and proprietary to
+    ~ Silverpop Systems, Inc. Unauthorized use, disclosure, or reproduction
+    ~ is strictly prohibited.
+    -->
+<ivy-module xmlns:mvn="http://ant.apache.org/ivy/maven" version="1.0">
+    <info organisation="silverpop"
+        module="deliverability"
+        branch="${branch.publish.deliverability}"
+        revision="${version.publish.deliverability}"/>
+
+    <configurations defaultconfmapping="compile,runtime->compile,default">
+        <conf name="compile" visibility="public" description="this is the default scope, used if none is specified. Compile dependencies are available in all classpaths."/>
+        <conf name="sources" visibility="public" description="this configuration contains the source artifact of this module, if any."/>
+        <conf name="runtime" visibility="public" description="this scope indicates that the dependency is not required for compilation, but is for execution. It is in the runtime and test classpaths, but not the compile classpath." />
+        <conf name="testsupport" visibility="public" description="this scope indicates that the dependency is not required for normal use of the application, and is only available for the test compilation and execution phases of dependent projects." />
+        <conf name="test" visibility="private" description="this scope indicates that the dependency is not required for normal use of the application, and is only available for the test compilation and execution phases." extends="runtime" />
+        <conf name="instrument" visibility="private"/>
+        <conf name="pmd" visibility="private"/>
+    </configurations>
+
+    <publications>
+        <artifact name="deliverability" type="jar" ext="jar" conf="compile,runtime"/>
+        <artifact name="deliverability" type="jar" ext="jar" conf="sources" mvn:classifier="sources"/>
+        <artifact name="deliverability" type="jar" ext="jar" conf="testsupport" mvn:classifier="tests"/>
+    </publications>
+
+    <dependencies>
+    <!-- begin: silverpop dependencies -->
+    <dependency org="silverpop" name="spcore" rev="${version.dependency.spcore}" branch="${branch.dependency.spcore}"
+                conf="compile->compile,sources;runtime->compile;test,testsupport->testsupport">
+      <exclude module="jdom"/>
+    </dependency>
+
+    </dependencies>
+</ivy-module>
