@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jackson-dataformat-csv-2.8.10">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/jackson-dataformat-csv-2.8.10.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

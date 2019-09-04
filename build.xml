@@ -58,4 +58,27 @@ Silverpop Deliverability Libary Ant build script
 	</fileset>
     </path>
 
+ <!-- jar-published -->
+  <target name="jar-published" depends="product-version,_jar-published-check" if="produce.jar.published">
+      <jar jarfile="${target.dir.publish}/${jar.name.published}" basedir="${target.dir.classes}" excludes="${jar.excludes.published}" compress="false">
+        <manifest>
+          <attribute name="Built-By" value="${user.name} ${TODAY}-${TSTAMP}" />
+          <attribute name="Build-Url" value="${env.BUILD_URL}" />
+	  <attribute name="Main-Class" value="co.acoustic.deliverability.log_processing"/>
+          <section name="co/acoustic/${app.name}">
+            <attribute name="Specification-Version" value="${ivy.pubrevision}" />
+            <attribute name="Specification-Vendor" value="Silverpop" />
+            <attribute name="Implementation-Title" value="co.acoustic.${app.name}" />
+            <attribute name="Implementation-Version" value="${ivy.pubrevision}" />
+            <attribute name="Implementation-Vendor" value="Silverpop Systems." />
+          </section>
+          <section  name="scm info">
+            <attribute name="Revision" value="${scm.info.revision}" />
+          </section>
+        </manifest>
+        <metainf dir="${target.dir.publish}" includes="ivy.xml"/>
+      </jar>
+  </target>
+
+
 </project>

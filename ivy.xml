@@ -44,26 +44,10 @@
       <exclude module="slf4j-api"/>
     </dependency>
 
-    <dependency org="com.fasterxml.jackson.core" name="jackson-core" rev="2.9.2" transitive="false">
-         <artifact name="jackson-core" type="jar"/>
-        <artifact name="jackson-core" type="jar" ext="jar" mvn:classifier="sources"/>
-    </dependency>
-
-    <dependency org="com.fasterxml.jackson.core" name="jackson-annotations" rev="2.9.6" transitive="false">
-         <artifact name="jackson-annotations" type="jar"/>
-        <artifact name="jackson-annotations" type="jar" ext="jar" mvn:classifier="sources"/>
-    </dependency>
-        <dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.9.7" transitive="false">
-         <artifact name="jackson-databind" type="jar"/>
-        <artifact name="jackson-databind" type="jar" ext="jar" mvn:classifier="sources"/>
-    </dependency>
-
-        <dependency org="com.fasterxml.jackson.dataformat" name="jackson-dataformat-csv" rev="2.8.10" transitive="false">
-         <artifact name="jackson-dataformat-csv" type="jar"/>
-        <artifact name="jackson-dataformat-csv" type="jar" ext="jar" mvn:classifier="sources"/>
-    </dependency>
-
-
+    <dependency org="com.fasterxml.jackson.core" name="jackson-core" rev="2.9.2"/>
+    <dependency org="com.fasterxml.jackson.core" name="jackson-annotations" rev="2.9.6"/>
+    <dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.9.7"/>
+    <dependency org="com.fasterxml.jackson.dataformat" name="jackson-dataformat-csv" rev="2.8.8"/>
     <dependency org="commons-io" name="commons-io" rev="2.6"/>
 
 
