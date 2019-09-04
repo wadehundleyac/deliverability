@@ -363,7 +363,7 @@ public class log_processing implements AccountingProcessor {
 
     public void closeFile( ){
         try{
-            fp.close();
+            if (fp) fp.close();
         }
         catch( IOException s)
         {
@@ -374,7 +374,7 @@ public class log_processing implements AccountingProcessor {
 
     public void closeFileB2B( ){
         try{
-            fp2.close();
+            if (fp2) fp2.close();
         }
         catch( IOException s)
         {
