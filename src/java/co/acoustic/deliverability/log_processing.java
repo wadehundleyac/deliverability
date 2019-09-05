@@ -882,7 +882,7 @@ public class log_processing implements AccountingProcessor {
         else recordsProcessed=processAsBinary(inputFile, outputDir, maxRecordsPerFile);
 
         // used during performance testing only
-        //System.out.println("Record Count" + recordsProcessed);
+        System.out.println("Record Count" + recordsProcessed);
     }
 
 
