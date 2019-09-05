@@ -873,7 +873,7 @@ public class log_processing implements AccountingProcessor {
 
 
         // if we don't receive a CSV file as input assume it is the binary equivalent
-        // The binary files usually look like "acct.*" whereas the CSV equivalent
+        // The binary files usually look like "acct.*" (e.g. acct.40) whereas the CSV equivalent
         // will always end in csv
         String extension = FilenameUtils.getExtension(inputFile);
         int recordsProcessed=0;
