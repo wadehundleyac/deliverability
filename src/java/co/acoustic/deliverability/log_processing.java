@@ -1,6 +1,6 @@
 /****************************************************************
  *
- * Copyright © 20xx Acoustic, L.P. All rights reserved.
+ * Copyright © 2019 Acoustic, L.P. All rights reserved.
  *
  * NOTICE: This file contains material that is confidential and proprietary to
  * Acoustic, L.P. and/or other developers. No license is granted under any intellectual or
@@ -849,7 +849,7 @@ public class log_processing implements AccountingProcessor {
      *
      * @param args
      *      should contain the path to the accounting file to process and
-     *      the IP address to filter on.
+     *      the output directory for creating the CSV files.
      */
     public static void main(String args[]) {
         if (args.length < 2) {
@@ -860,7 +860,9 @@ public class log_processing implements AccountingProcessor {
         String outputDir = args[1];
         int maxRecordsPerFile = 0;
 
-        // if no 3rd argument or invalid integer set it to 0
+        // if no 3rd argument or invalid integer set maxRecords to 0
+        // log_processing will generate one file per maxRecord count using the
+        // naming convention *.0.csv, *.1.csv, etc
         if (args.length == 3) {
             try {
                 maxRecordsPerFile = Integer.parseInt(args[2]);
@@ -874,14 +876,20 @@ public class log_processing implements AccountingProcessor {
         // The binary files usually look like "acct.*" whereas the CSV equivalent
         // will always end in csv
         String extension = FilenameUtils.getExtension(inputFile);
+        int recordsProcessed=0;
 
-        if (extension.equalsIgnoreCase("csv")) processAsCSV(inputFile, outputDir, maxRecordsPerFile);
-        else processAsBinary(inputFile, outputDir, maxRecordsPerFile);
+        if (extension.equalsIgnoreCase("csv")) recordsProcessed=processAsCSV(inputFile, outputDir, maxRecordsPerFile);
+        else recordsProcessed=processAsBinary(inputFile, outputDir, maxRecordsPerFile);
+
+        // used during performance testing only
+        //System.out.println("Record Count" + recordsProcessed);
     }
 
 
-    static void processAsCSV(String inputFile, String outputDir, int maxRecordsPerFile)
+    static int processAsCSV(String inputFile, String outputDir, int maxRecordsPerFile)
     {
+        int recordsProcessed=0;
+
         AccountingRecords accRecords = new AccountingRecords();
         log_processing accProc = new log_processing(outputDir);
 
@@ -909,13 +917,11 @@ public class log_processing implements AccountingProcessor {
                 Iterator<Map.Entry<String, String>> fieldItr = rowAsMap.entrySet().iterator();
                 while (fieldItr.hasNext()) {
                     Map.Entry<String, String> field = fieldItr.next();
-
-                    //System.out.println("Binary : " + accRecords.convertCsvToBinary(field.getKey()) + ", CSV : " + field.getKey());
-
                     accProc.processField(accRecords.convertCsvToBinary(field.getKey()), null, field.getValue());
                 }
 
                 accProc.endRecord();
+                recordsProcessed++;
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -924,12 +930,16 @@ public class log_processing implements AccountingProcessor {
             accProc.closeFile();
             accProc.closeFileB2B();
         }
+
+        return recordsProcessed;
     }
 
 
 
-    static void processAsBinary(String inputFile, String outputDir, int maxRecordsPerFile )
+    static int processAsBinary(String inputFile, String outputDir, int maxRecordsPerFile )
     {
+        int recordsProcessed=0;
+
         log_processing accProc = new log_processing(outputDir);
         AccountingReader acc = new AccountingReader(accProc);
         try {
@@ -944,6 +954,7 @@ public class log_processing implements AccountingProcessor {
             while (acc.read()) {
                     /* do per-record processing here */
                 accProc.endRecord();
+                recordsProcessed++;
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -951,5 +962,7 @@ public class log_processing implements AccountingProcessor {
         finally {
             acc.close();
         }
+
+        return recordsProcessed;
     }
 }
