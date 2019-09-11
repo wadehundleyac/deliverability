@@ -64,7 +64,7 @@ Silverpop Deliverability Libary Ant build script
         <manifest>
           <attribute name="Built-By" value="${user.name} ${TODAY}-${TSTAMP}" />
           <attribute name="Build-Url" value="${env.BUILD_URL}" />
-	  <attribute name="Main-Class" value="co.acoustic.deliverability.log_processing"/>
+	  <attribute name="Main-Class" value="log_processing"/>
           <section name="co/acoustic/${app.name}">
             <attribute name="Specification-Version" value="${ivy.pubrevision}" />
             <attribute name="Specification-Vendor" value="Silverpop" />

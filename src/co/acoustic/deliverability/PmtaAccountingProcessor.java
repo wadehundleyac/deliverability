@@ -66,22 +66,16 @@
 package co.acoustic.deliverability;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
-
+import java.util.Date;
+import java.util.StringTokenizer;
+import java.util.Calendar;
+import java.util.Map;
+import java.util.SimpleTimeZone;
 import org.apache.commons.io.FilenameUtils;
-import com.fasterxml.jackson.dataformat.csv.CsvMapper;
-import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import com.fasterxml.jackson.databind.MappingIterator;
-
 import com.port25.pmta.api.accounter.AccountingProcessor;
-import com.port25.pmta.api.accounter.AccountingReader;
-
-import co.acoustic.deliverability.AccountingRecords;
-
 import com.silverpop.core.util.Verp;
 
 
@@ -94,7 +88,7 @@ import com.silverpop.core.util.Verp;
  *
  * $Id: ExampleAccounter.java,v 1.11 2004/04/19 12:57:51 robert Exp $
  */
-public class log_processing implements AccountingProcessor {
+public class PmtaAccountingProcessor implements AccountingProcessor {
 
     private String desiredIp;
     private String lastIp;
@@ -106,7 +100,6 @@ public class log_processing implements AccountingProcessor {
 
     // Max lines per file
     private int maxLinesPerFile = 1000000;
-    //private int maxLinesPerFile = 250000;
 
     private int currentLine = 0;
     private int currentLineB2B = 0;
@@ -151,12 +144,10 @@ public class log_processing implements AccountingProcessor {
     private BufferedWriter fp2;
     private String baseFileName;
     private String outputDirectory;
-    private String baseFilePath;
-
-    private String tempFromDomain;
 
 
-    log_processing(String ip) {
+
+    PmtaAccountingProcessor(String ip) {
         desiredIp = ip;
         lastIp = null;
         thisMessageSize = 0;
@@ -201,41 +192,9 @@ public class log_processing implements AccountingProcessor {
     }
 
 
-    public void printRecord( int line )
-    {
-        System.out.println( line + ": " + t + "," +
-                tq + "," +
-                envId + "," +
-                jobId + "," +
-                reportId + "," +
-                dlvFrom + "," +
-                dlvTo + "," +
-                orig + "," +
-                nRcpt + "," +
-                r + "," +
-                tr + "," +
-                dsnAct + "," +
-                dsnSts + "," +
-                dsnMTA + "," +
-                dsnDiag + "," +
-                bncCat + "," +
-                type + "," +
-                mta + "," +
-                vmta + "," +
-                msgid + "," +
-                recpid + "," +
-                retry + "," +
-                domain + "," +
-                fromAddress + "," +
-                ssID);
-    }
 
-    public void printField( int line, String name, String value ){
-        System.out.println( "Record: " + line );
-        System.out.println( "Name: " + name + " Value[" + value +"]");
-    }
 
-    public String getTimeStamp( long t )
+    private String getTimeStamp( long t )
     {
         String rslt = "";
 
@@ -247,14 +206,14 @@ public class log_processing implements AccountingProcessor {
             Date t1;
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 
-            t1 = new java.util.Date( t * 1000 );
+            t1 = new Date( t * 1000 );
 
             // If t1 is in GMT use this one
             //rslt = format.format( t1 );
 
             // if t1 is local use this one
             //String rslt2 = "";
-            java.util.Calendar cal0 = Calendar.getInstance(new SimpleTimeZone(0, "GMT"));
+            Calendar cal0 = Calendar.getInstance(new SimpleTimeZone(0, "GMT"));
             format.setCalendar(cal0);
             rslt = format.format(t1);
 
@@ -265,7 +224,7 @@ public class log_processing implements AccountingProcessor {
         return( rslt );
     }
 
-    public int setKeyWords( String lookfor, String cat)
+    private  int setKeyWords( String lookfor, String cat)
     {
         int rslt = 0;
         String diag;
@@ -303,7 +262,7 @@ public class log_processing implements AccountingProcessor {
         return( rslt );
     }
 
-    public int setDomainInfo( String dom, String cat )
+    private int setDomainInfo( String dom, String cat )
     {
         int rslt = 0;
         String ldom;
@@ -327,11 +286,10 @@ public class log_processing implements AccountingProcessor {
     }
 
     public void setFileName ( String fn ){
-        baseFilePath = FilenameUtils.getPath(fn);
         baseFileName = FilenameUtils.getName(fn);
     }
 
-    public void createFile( ){
+    private void createFile( ){
         String fName;
 
         fName = "........................................";
@@ -347,7 +305,7 @@ public class log_processing implements AccountingProcessor {
 
     }
 
-    public void createFileB2B( ){
+    private void createFileB2B( ){
         String fNameB2B;
         fNameB2B = "........................................";
         try{
@@ -383,9 +341,9 @@ public class log_processing implements AccountingProcessor {
         }
     }
 
+    // required to complete the AccountingProcessor interface
     public void beginStructure(String structName, Map attributes) {
-        // don't care
-        //printField(currentLine, "Begin Record", "x" );
+
     }
 
 
@@ -395,7 +353,6 @@ public class log_processing implements AccountingProcessor {
            address we might not have the size and vice versa. Thus we
            gather the values for later use. */
 
-        //printField( currentLine, name, content );
 
         if ( isFrom == 1 )
         {
@@ -613,7 +570,7 @@ public class log_processing implements AccountingProcessor {
         String localpart;
         if( r != null && r.length() > 0)
         {
-            java.util.StringTokenizer st = new java.util.StringTokenizer( r, "@" );
+            StringTokenizer st = new StringTokenizer( r, "@" );
             try{
                 localpart = st.nextToken();
             }
@@ -843,126 +800,4 @@ public class log_processing implements AccountingProcessor {
     }
 
 
-
-    /**
-     * Sample main to process some accounting files.
-     *
-     * @param args
-     *      should contain the path to the accounting file to process and
-     *      the output directory for creating the CSV files.
-     */
-    public static void main(String args[]) {
-        if (args.length < 2) {
-            throw new IllegalArgumentException("Expected arguments: path to accounting file and path to output directory");
-        }
-
-        String inputFile = args[0];
-        String outputDir = args[1];
-        int maxRecordsPerFile = 0;
-
-        // if no 3rd argument or invalid integer set maxRecords to 0
-        // log_processing will generate one file per maxRecord count using the
-        // naming convention *.0.csv, *.1.csv, etc
-        if (args.length == 3) {
-            try {
-                maxRecordsPerFile = Integer.parseInt(args[2]);
-            } catch (NumberFormatException e) {
-                maxRecordsPerFile = 0;
-            }
-        }
-
-
-        // if we don't receive a CSV file as input assume it is the binary equivalent
-        // The binary files usually look like "acct.*" (e.g. acct.40) whereas the CSV equivalent
-        // will always end in csv
-        String extension = FilenameUtils.getExtension(inputFile);
-        int recordsProcessed=0;
-
-        if (extension.equalsIgnoreCase("csv")) recordsProcessed=processAsCSV(inputFile, outputDir, maxRecordsPerFile);
-        else recordsProcessed=processAsBinary(inputFile, outputDir, maxRecordsPerFile);
-
-        // used during performance testing only
-        System.out.println("Record Count" + recordsProcessed);
-    }
-
-
-    static int processAsCSV(String inputFile, String outputDir, int maxRecordsPerFile)
-    {
-        int recordsProcessed=0;
-
-        AccountingRecords accRecords = new AccountingRecords();
-        log_processing accProc = new log_processing(outputDir);
-
-        try {
-            accProc.setFileName(inputFile);    // file to process
-            accProc.setOutputDir(outputDir); // where to write csv
-            accProc.initRecord();            // init the record before the first pass
-
-            if (maxRecordsPerFile > 0)
-                accProc.setFileSize(maxRecordsPerFile);
-
-            File csvFile = new File(inputFile);
-            CsvMapper mapper = new CsvMapper();
-            CsvSchema schema = CsvSchema.emptySchema().withHeader(); // use first row as header; otherwise defaults are fine
-            MappingIterator<Map<String, String>> it = mapper.readerFor(Map.class)
-                    .with(schema)
-                    .readValues(csvFile);
-
-            // loop per row
-            while (it.hasNext()) {
-                Map<String, String> rowAsMap = it.next();
-                // access by column name, as defined in the header row...
-
-                // loop per field in a row
-                Iterator<Map.Entry<String, String>> fieldItr = rowAsMap.entrySet().iterator();
-                while (fieldItr.hasNext()) {
-                    Map.Entry<String, String> field = fieldItr.next();
-                    accProc.processField(accRecords.convertCsvToBinary(field.getKey()), null, field.getValue());
-                }
-
-                accProc.endRecord();
-                recordsProcessed++;
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-        finally {
-            accProc.closeFile();
-            accProc.closeFileB2B();
-        }
-
-        return recordsProcessed;
-    }
-
-
-
-    static int processAsBinary(String inputFile, String outputDir, int maxRecordsPerFile )
-    {
-        int recordsProcessed=0;
-
-        log_processing accProc = new log_processing(outputDir);
-        AccountingReader acc = new AccountingReader(accProc);
-        try {
-            acc.open(inputFile, 0);
-            accProc.setFileName(inputFile);    // file to process
-            accProc.setOutputDir(outputDir); // where to write csv
-            accProc.initRecord();            // init the record before the first pass
-
-            if (maxRecordsPerFile > 0)
-                accProc.setFileSize(maxRecordsPerFile);
-
-            while (acc.read()) {
-                    /* do per-record processing here */
-                accProc.endRecord();
-                recordsProcessed++;
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-        finally {
-            acc.close();
-        }
-
-        return recordsProcessed;
-    }
 }

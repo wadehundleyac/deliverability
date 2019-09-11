@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * Created by gwhundle on 8/28/19.
  */
-public class AccountingRecords {
+public class AccountingFields {
 
     Map<String, String> fieldMapping = new HashMap<String, String>() {
         {
