@@ -10,7 +10,6 @@
  *
  ****************************************************************/
 
-
 /*
 * Program Name log_processing.java
 * Build to: logprocess
