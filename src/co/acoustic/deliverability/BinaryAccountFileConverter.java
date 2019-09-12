@@ -1,8 +1,8 @@
 package co.acoustic.deliverability;
 
 import com.port25.pmta.api.accounter.AccountingReader;
-
 import java.io.IOException;
+
 
 public class BinaryAccountFileConverter implements AccountFileConverter  {
 
