@@ -13,3 +13,4 @@ The data directory contains the binary form of accounting data (acct.40) and the
 The build.xml and ivy.xml files were created to support an ANT build. However, the output jar is not currently runnable due to a class not found exception. Will work on this more later; however, there is a valid intellij project that can be used for building the jar.
 
 When starting the jar you have to specify the java.library.path to the dist directory which contains some native library which the PMTA jar attempts to load dynamically.  If this is not done then you will get a LoadLibrary exception when attempting to convert a binary file.  The CSV conversion does not require it.
+
