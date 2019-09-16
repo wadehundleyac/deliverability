@@ -10,7 +10,6 @@
  *
  ****************************************************************/
 
-
 /*
 * Program Name log_processing.java
 * Build to: logprocess
@@ -65,7 +64,6 @@
 
 package co.acoustic.deliverability;
 
-<<<<<<< HEAD
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -89,7 +87,12 @@ import com.silverpop.core.util.Verp;
  *
  * $Id: ExampleAccounter.java,v 1.11 2004/04/19 12:57:51 robert Exp $
  */
-public abstract class AccountFileConverter implements AccountingProcessor {
+public class PmtaAccountingProcessor implements AccountingProcessor {
+
+    private String desiredIp;
+    private String lastIp;
+    private int thisMessageSize;
+    private int totalMessageSize;
 
     private int isFrom = 0;
     private int isSSID = 0;
@@ -142,8 +145,13 @@ public abstract class AccountFileConverter implements AccountingProcessor {
     private String outputDirectory;
 
 
-    public abstract int processFile(String inputFile, String outputDir, int maxRecordsPerFile);
 
+    PmtaAccountingProcessor(String ip) {
+        desiredIp = ip;
+        lastIp = null;
+        thisMessageSize = 0;
+        totalMessageSize = 0;
+    }
 
     public void setFileSize( int maxRecordsPerFile ){
         maxLinesPerFile = maxRecordsPerFile;
@@ -791,9 +799,4 @@ public abstract class AccountFileConverter implements AccountingProcessor {
     }
 
 
-=======
-
-public interface AccountFileConverter {
-    public int processFile(String inputFile, String outputDir, int maxRecordsPerFile);
->>>>>>> origin/develop
 }

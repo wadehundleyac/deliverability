@@ -15,10 +15,14 @@
 package co.acoustic.deliverability;
 
 import com.port25.pmta.api.accounter.AccountingReader;
-
 import java.io.IOException;
 
+<<<<<<< HEAD
 public class BinaryAccountFileConverter extends AccountFileConverter  {
+=======
+
+public class BinaryAccountFileConverter implements AccountFileConverter  {
+>>>>>>> origin/develop
 
     public int processFile(String inputFile, String outputDir, int maxRecordsPerFile )
     {
