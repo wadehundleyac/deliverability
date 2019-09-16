@@ -2,16 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="84280c14-8d2f-481b-8cd5-9e7877f8e12b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountFileConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/ApplicationMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/BinaryAccountFileConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/co/acoustic/deliverability/AccountingRecords.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountingFields.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/java/co/acoustic/deliverability/log_processing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/PmtaAccountingProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_binary.bat" beforeDir="false" afterPath="$PROJECT_DIR$/run_binary.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/run_csv.bat" beforeDir="false" afterPath="$PROJECT_DIR$/run_csv.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountFileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountFileConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountingFields.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountingFields.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/ApplicationMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/ApplicationMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/BinaryAccountFileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/BinaryAccountFileConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/PmtaAccountingProcessor.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -401,7 +400,7 @@
       <workItem from="1567625163270" duration="1246000" />
       <workItem from="1568220614995" duration="1633000" />
       <workItem from="1568222676882" duration="63000" />
-      <workItem from="1568222757867" duration="1969000" />
+      <workItem from="1568222757867" duration="4475000" />
     </task>
     <servers />
   </component>
@@ -428,6 +427,22 @@
     <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java</url>
+          <line>31</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java</url>
+          <line>71</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
