@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="84280c14-8d2f-481b-8cd5-9e7877f8e12b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_binary.bat" beforeDir="false" afterPath="$PROJECT_DIR$/run_binary.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_csv.bat" beforeDir="false" afterPath="$PROJECT_DIR$/run_csv.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountFileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountFileConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountingFields.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountingFields.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/ApplicationMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/ApplicationMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/BinaryAccountFileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/BinaryAccountFileConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/PmtaAccountingProcessor.java" beforeDir="false" />
-    </list>
+    <list default="true" id="84280c14-8d2f-481b-8cd5-9e7877f8e12b" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -400,7 +390,7 @@
       <workItem from="1567625163270" duration="1246000" />
       <workItem from="1568220614995" duration="1633000" />
       <workItem from="1568222676882" duration="63000" />
-      <workItem from="1568222757867" duration="4475000" />
+      <workItem from="1568222757867" duration="4733000" />
     </task>
     <servers />
   </component>
@@ -433,12 +423,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java</url>
-          <line>31</line>
+          <line>36</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java</url>
-          <line>71</line>
+          <line>76</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

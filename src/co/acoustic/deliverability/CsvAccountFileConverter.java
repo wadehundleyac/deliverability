@@ -23,12 +23,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
-<<<<<<< HEAD
 public class CsvAccountFileConverter extends AccountFileConverter {
-=======
-
-public class CsvAccountFileConverter implements AccountFileConverter {
->>>>>>> origin/develop
 
     public int processFile(String inputFile, String outputDir, int maxRecordsPerFile)
     {
