@@ -328,6 +328,7 @@ public abstract class AccountFileConverter implements AccountingProcessor {
            know about the order of the fields, i.e. when we get the IP
            address we might not have the size and vice versa. Thus we
            gather the values for later use. */
+        if (name==null) return;
 
 
         if (isFrom == 1) {
