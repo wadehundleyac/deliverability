@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="84280c14-8d2f-481b-8cd5-9e7877f8e12b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_binary.bat" beforeDir="false" afterPath="$PROJECT_DIR$/run_binary.bat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_csv.bat" beforeDir="false" afterPath="$PROJECT_DIR$/run_csv.bat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountFileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountFileConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountingFields.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/AccountingFields.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/ApplicationMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/ApplicationMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/BinaryAccountFileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/BinaryAccountFileConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/co/acoustic/deliverability/PmtaAccountingProcessor.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -302,7 +295,7 @@
     <configuration name="log_processing" type="JarApplication">
       <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/deliverability_jar/deliverability.jar" />
       <option name="VM_PARAMETERS" value="-Djava.library.path=$PROJECT_DIR$/dist" />
-      <option name="PROGRAM_PARAMETERS" value="./data/acct-2019-09-03-0020.csv  ./" />
+      <option name="PROGRAM_PARAMETERS" value="./data/newpmta.csv  ./" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
@@ -400,7 +393,8 @@
       <workItem from="1567625163270" duration="1246000" />
       <workItem from="1568220614995" duration="1633000" />
       <workItem from="1568222676882" duration="63000" />
-      <workItem from="1568222757867" duration="4475000" />
+      <workItem from="1568222757867" duration="4923000" />
+      <workItem from="1568740032877" duration="2364000" />
     </task>
     <servers />
   </component>
@@ -433,13 +427,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java</url>
-          <line>31</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/co/acoustic/deliverability/CsvAccountFileConverter.java</url>
           <line>71</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/co/acoustic/deliverability/AccountFileConverter.java</url>
+          <line>346</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

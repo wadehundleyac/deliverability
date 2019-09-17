@@ -144,19 +144,18 @@ public abstract class AccountFileConverter implements AccountingProcessor {
     public abstract int processFile(String inputFile, String outputDir, int maxRecordsPerFile);
 
 
-    public void setFileSize( int maxRecordsPerFile ){
+    public void setFileSize(int maxRecordsPerFile) {
         maxLinesPerFile = maxRecordsPerFile;
     }
 
-    public void initRecord()
-    {
+    public void initRecord() {
         t = "";
         t1 = 0L;
         tq = "";
         tq1 = 0L;
         envId = "";
         jobId = 0;
-        reportId=0;
+        reportId = 0;
         dlvFrom = "";
         dlvTo = "";
         orig = "";
@@ -177,26 +176,22 @@ public abstract class AccountFileConverter implements AccountingProcessor {
         recpid = 0L;
         retry = 0L;
         domain = "";
-        fromAddress ="";
-        ssID="";
+        fromAddress = "";
+        ssID = "";
     }
 
 
-
-
-    private String getTimeStamp( long t )
-    {
+    private String getTimeStamp(long t) {
         String rslt = "";
 
         // if t == 0 then the resulting field should be null
-        if( t == 0 )
+        if (t == 0)
             rslt = "";
-        else
-        {
+        else {
             Date t1;
             SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmmss");
 
-            t1 = new Date( t * 1000 );
+            t1 = new Date(t * 1000);
 
             // If t1 is in GMT use this one
             //rslt = format.format( t1 );
@@ -211,122 +206,113 @@ public abstract class AccountFileConverter implements AccountingProcessor {
             //System.out.println( "New     : " + rslt2);
         }
 
-        return( rslt );
+        return (rslt);
     }
 
-    private  int setKeyWords( String lookfor, String cat)
-    {
+    private int setKeyWords(String lookfor, String cat) {
         int rslt = 0;
         String diag;
 
         diag = lookfor.toLowerCase();
 
-        if( cat.equals( "other") ||
-                cat.equals( "policy-related") ||
-                cat.equals( "spam-related"))
-        {
-            if( diag.indexOf("spamcop") > 0)
+        if (cat.equals("other") ||
+                cat.equals("policy-related") ||
+                cat.equals("spam-related")) {
+            if (diag.indexOf("spamcop") > 0)
                 rslt = 1;
-            else if( diag.indexOf( "spamhaus") > 0 )
+            else if (diag.indexOf("spamhaus") > 0)
                 rslt = 2;
-            else if( diag.indexOf( "dynablock") > 0 )
+            else if (diag.indexOf("dynablock") > 0)
                 rslt = 3;
-            else if( diag.indexOf( "rly:bd") > 0)
+            else if (diag.indexOf("rly:bd") > 0)
                 rslt = 4;
-            else if( diag.indexOf( "hvu:") > 0 )
+            else if (diag.indexOf("hvu:") > 0)
                 rslt = 5;
-            else if( diag.indexOf( "rly:") > 0 )
+            else if (diag.indexOf("rly:") > 0)
                 rslt = 6;
-            else if( diag.indexOf( "dyn:") > 0 )
+            else if (diag.indexOf("dyn:") > 0)
                 rslt = 6;
-            else if( diag.indexOf( "blackholes.excite.com") > 0)
+            else if (diag.indexOf("blackholes.excite.com") > 0)
                 rslt = 7;
-            else if( diag.indexOf( "defer-04.html") > 0 )
+            else if (diag.indexOf("defer-04.html") > 0)
                 rslt = 8;
-            else if( diag.indexOf( "many recipient") > 0)
+            else if (diag.indexOf("many recipient") > 0)
                 rslt = 9;
-            else if( diag.indexOf( "many connection") > 0)
+            else if (diag.indexOf("many connection") > 0)
                 rslt = 10;
         }
 
-        return( rslt );
+        return (rslt);
     }
 
-    private int setDomainInfo( String dom, String cat )
-    {
+    private int setDomainInfo(String dom, String cat) {
         int rslt = 0;
         String ldom;
 
         ldom = dom.toLowerCase();
 
-        if( ldom.equals( "bellsouth.net") && cat.equals("message-expired"))
+        if (ldom.equals("bellsouth.net") && cat.equals("message-expired"))
             rslt = 11;
-        else if( ldom.equals("hotmail.com") && cat.equals( "no-answer-from-host"))
+        else if (ldom.equals("hotmail.com") && cat.equals("no-answer-from-host"))
             rslt = 12;
-        else if( ldom.indexOf( ".rr.com") > 0 && cat.equals( "message-expired"))
+        else if (ldom.indexOf(".rr.com") > 0 && cat.equals("message-expired"))
             rslt = 13;
-        else if( ldom.indexOf( ".rr.com") > 0 && cat.equals( "policy-related"))
+        else if (ldom.indexOf(".rr.com") > 0 && cat.equals("policy-related"))
             rslt = 14;
 
-        return( rslt );
+        return (rslt);
     }
 
-    public void setOutputDir( String dir ){
+    public void setOutputDir(String dir) {
         outputDirectory = dir;
     }
 
-    public void setFileName ( String fn ){
+    public void setFileName(String fn) {
         baseFileName = FilenameUtils.getName(fn);
     }
 
-    private void createFile( ){
+    private void createFile() {
         String fName;
 
         fName = "........................................";
-        try{
+        try {
             fName = outputDirectory + "/" + baseFileName + "." + level + ".csv";
-            fp = new BufferedWriter( new FileWriter( fName) );
+            fp = new BufferedWriter(new FileWriter(fName));
             level++;
-        }
-        catch (IOException s){
-            System.out.println( "Unable to create file: " + fName );
+        } catch (IOException s) {
+            System.out.println("Unable to create file: " + fName);
             s.printStackTrace();
         }
 
     }
 
-    private void createFileB2B( ){
+    private void createFileB2B() {
         String fNameB2B;
         fNameB2B = "........................................";
-        try{
+        try {
             fNameB2B = outputDirectory + "/" + baseFileName + "." + levelB2B + ".B2B.csv";
-            fp2 = new BufferedWriter( new FileWriter( fNameB2B) );
+            fp2 = new BufferedWriter(new FileWriter(fNameB2B));
             levelB2B++;
-        }
-        catch (IOException s){
-            System.out.println( "Unable to create file: " + fNameB2B );
+        } catch (IOException s) {
+            System.out.println("Unable to create file: " + fNameB2B);
             s.printStackTrace();
         }
     }
 
-    public void closeFile( ){
-        try{
+    public void closeFile() {
+        try {
             if (fp != null) fp.close();
-        }
-        catch( IOException s)
-        {
-            System.out.println( "Unable to close file");
+        } catch (IOException s) {
+            System.out.println("Unable to close file");
             s.printStackTrace();
         }
     }
 
-    public void closeFileB2B( ){
-        try{
+    public void closeFileB2B() {
+        try {
             if (fp2 != null) fp2.close();
-        }
-        catch( IOException s)
-        {
-            System.out.println( "Unable to close B2B file");
+        } catch (IOException s) {
+            System.out.println("Unable to close B2B file");
             s.printStackTrace();
         }
     }
@@ -342,173 +328,128 @@ public abstract class AccountFileConverter implements AccountingProcessor {
            know about the order of the fields, i.e. when we get the IP
            address we might not have the size and vice versa. Thus we
            gather the values for later use. */
+        if (name==null) return;
 
 
-        if ( isFrom == 1 )
-        {
-            if( name.equals("content")) {
+        if (isFrom == 1) {
+            if (name.equals("content")) {
                 //System.out.println( "From Field Equals " + content );
                 fromAddress = content;
                 isFrom = 0;
             }
-        }
-        else if( isSSID == 1 )
-        {
-            if( name.equals("content")) {
+        } else if (isSSID == 1) {
+            if (name.equals("content")) {
                 //System.out.println( "SSID Equals " + content );
                 ssID = content;
                 isSSID = 0;
             }
-        }
-        else
-        {
+        } else {
             if (name.equals("dlvTo")) {
                 dlvTo = content;
-            }
-            else if ( name.equals("tq")){
-                try{
+            } else if (name.equals("tq")) {
+                try {
                     tq1 = Long.parseLong(content);
-                }
-                catch( java.lang.NumberFormatException x )
-                {
-                    System.out.println( "T1 RETRIEVAL ");
+                } catch (java.lang.NumberFormatException x) {
+                    System.out.println("T1 RETRIEVAL ");
                     //x.printStackTrace() ;
-                    tq1=1;
+                    tq1 = 1;
                 }
-            }
-            else if( name.equals("t")){
-                try{
+            } else if (name.equals("t")) {
+                try {
                     t1 = Long.parseLong(content);
-                }
-                catch( java.lang.NumberFormatException x ) {
-                    System.out.println( "T1 RETRIEVAL ");
+                } catch (java.lang.NumberFormatException x) {
+                    System.out.println("T1 RETRIEVAL ");
                     //x.printStackTrace();
-                    t1=1;
+                    t1 = 1;
                 }
-            }
-            else if ( name.equals("envId")){
+            } else if (name.equals("envId")) {
                 envId = content;
-            }
-            else if ( name.equals("dlvFrom")){
+            } else if (name.equals("dlvFrom")) {
                 dlvFrom = content;
-            }
-            else if ( name.equals("dlvTo")){
-                dlvTo = content ;
-            }
-            else if( name.equals("orig")){
+            } else if (name.equals("dlvTo")) {
+                dlvTo = content;
+            } else if (name.equals("orig")) {
                 orig = content;
-            }
-            else if(  name.equals("nRcpt")){
+            } else if (name.equals("nRcpt")) {
                 nRcpt = Integer.parseInt(content);
-            }
-            else if( name.equals("r")){
+            } else if (name.equals("r")) {
                 r = content;
-            }
-            else if( name.equals("tr")){
-                try{
+            } else if (name.equals("tr")) {
+                try {
                     // If there is a tr record it's a bounce
                     tr1 = Long.parseLong(content);
-                }
-                catch( java.lang.NumberFormatException x ){
-                    System.out.println( "Error processing tr");
+                } catch (java.lang.NumberFormatException x) {
+                    System.out.println("Error processing tr");
                     //x.printStackTrace() ;
-                    tr1=1;
+                    tr1 = 1;
                 }
-            }
-            else if( name.equals("dsnAct")){
+            } else if (name.equals("dsnAct")) {
                 dsnAct = content;
-            }
-            else if( name.equals("dsnSts")){
+            } else if (name.equals("dsnSts")) {
                 dsnSts = content;
-            }
-            else if( name.equals("dsnMTA")){
+            } else if (name.equals("dsnMTA")) {
                 dsnMTA = content;
-            }
-            else if( name.equals("bncCat")){
+            } else if (name.equals("bncCat")) {
                 bncCat = content;
-            }
-            else if( name.equals("mta")){
+            } else if (name.equals("mta")) {
                 mta = content;
                 // Debug
                 //System.out.println("MTA: [" + mta + "]");
-            }
-            else if( name.equals( "type")){
+            } else if (name.equals("type")) {
                 type = content;
-            }
-            else if( name.equals( "vmta")){
+            } else if (name.equals("vmta")) {
                 vmta = content;
-            }
-            else if( name.equals("ti")){
+            } else if (name.equals("ti")) {
                 ti = content;
-            }
-            else if( name.equals("dsnDiag")){
+            } else if (name.equals("dsnDiag")) {
                 dsnDiag = content;
                 int maxLen = 2499;
-                if( dsnDiag.length() > maxLen ){
-                    dsnDiag = dsnDiag.substring(0,maxLen);
+                if (dsnDiag.length() > maxLen) {
+                    dsnDiag = dsnDiag.substring(0, maxLen);
                 }
-            }
-            else if( name.equals("esmtp")){
+            } else if (name.equals("esmtp")) {
                 //do nothing
-            }
-            else if( name.equals("dlvThrough")){
+            } else if (name.equals("dlvThrough")) {
                 //do nothing
-            }
-            else if( name.equals("size")){
+            } else if (name.equals("size")) {
                 try {
                     size = Integer.parseInt(content);
-                }
-                catch (NumberFormatException nfe) {
+                } catch (NumberFormatException nfe) {
                     //nfe.printStackTrace();
-                    size=0;
+                    size = 0;
                 }
-            }
-            else if( name.equals("version")){
+            } else if (name.equals("version")) {
                 //do nothing
-            }
-            else if( name.equals("fullHostName")){
+            } else if (name.equals("fullHostName")) {
                 //do nothing
-            }
-            else if( name.equals("usrString")){
+            } else if (name.equals("usrString")) {
                 //do nothing
-            }
-            else if( name.equals("build")){
+            } else if (name.equals("build")) {
                 //do nothing
-            }
-            else if( name.equals("count")){
+            } else if (name.equals("count")) {
                 //do nothing
-            }
-            else if( name.equals("real")){
+            } else if (name.equals("real")) {
                 //do nothing
-            }
-            else if( name.equals("timeNow")){
+            } else if (name.equals("timeNow")) {
                 //do nothing
-            }
-            else if( name.equals("startupTime")){
+            } else if (name.equals("startupTime")) {
                 //do nothing
-            }
-            else if( name.equals("shuttingDown")){
+            } else if (name.equals("shuttingDown")) {
                 //do nothing
-            }
-            else if( name.equals("rcp")){
+            } else if (name.equals("rcp")) {
                 //do nothing
-            }
-            else if( name.equals("msg")){
+            } else if (name.equals("msg")) {
                 //do nothing
-            }
-            else if( name.equals("gmimprinted")){
+            } else if (name.equals("gmimprinted")) {
                 //do nothing
-            }
-            else if( name.equals("kb")){
+            } else if (name.equals("kb")) {
                 //do nothing
-            }
-            else if( name.equals("name")){
-                if( content.equals( "From"))
+            } else if (name.equals("name")) {
+                if (content.equals("From"))
                     isFrom = 1;
-                else if(content.equals("imarkssID" ))
+                else if (content.equals("imarkssID"))
                     isSSID = 1;
-            }
-            else {
+            } else {
                 // If you need to discover the fields that are not processed
                 //  uncomment the following line and recompile
                 //System.out.println( "Unknown: " + name + " [" + content + "]");
@@ -520,87 +461,82 @@ public abstract class AccountFileConverter implements AccountingProcessor {
         // no end of struc processing
     }
 
-    public void endRecord()
-    {
+    public void endRecord() {
 
         // some fields will have to be manipulated to
         // calculate the needed data.
 
         // is this even a valid record
-        if(  t1 == 0  )
-        {
+        if (t1 == 0) {
             initRecord();
             //System.out.println( "Bad Record???? " + currentLine );
             return;
         }
 
         // Convert the long time to a good format
-        try{
-            t = getTimeStamp( t1 );
-        } catch ( Exception s ){
-            System.out.println( "Time t: " + s.toString());
+        try {
+            t = getTimeStamp(t1);
+        } catch (Exception s) {
+            System.out.println("Time t: " + s.toString());
             s.printStackTrace();
         }
 
         try {
-            tq = getTimeStamp( tq1);
-        } catch ( Exception s ){
-            System.out.println( "Time tq: " + s.toString());
+            tq = getTimeStamp(tq1);
+        } catch (Exception s) {
+            System.out.println("Time tq: " + s.toString());
             s.printStackTrace();
         }
 
-        try{
-            tr = getTimeStamp( tr1 );
-        } catch ( Exception s ){
-            System.out.println( "Time tr: " + s.toString());
+        try {
+            tr = getTimeStamp(tr1);
+        } catch (Exception s) {
+            System.out.println("Time tr: " + s.toString());
             s.printStackTrace();
         }
 
         // Get the domain from the recipient email address
         String localpart;
-        if( r != null && r.length() > 0)
-        {
-            StringTokenizer st = new StringTokenizer( r, "@" );
-            try{
+        if (r != null && r.length() > 0) {
+            StringTokenizer st = new StringTokenizer(r, "@");
+            try {
                 localpart = st.nextToken();
-            }
-            catch( Exception s ){
-                System.out.println( "Token: " + s.toString());
+            } catch (Exception s) {
+                System.out.println("Token: " + s.toString());
                 s.printStackTrace();
             }
 
-            try{
+            try {
                 domain = st.nextToken();
-            }
-            catch( Exception s ){
-                System.out.println( "Token: " + s.toString());
+            } catch (Exception s) {
+                System.out.println("Token: " + s.toString());
                 s.printStackTrace();
             }
         }
 
         // Remove comma's and single quotes from text fields -
         //        This would cause the import to the db to fail.
-        if( dsnDiag != null ){
-            String s1 = dsnDiag.replace( ',',' ');
-            String s2 = s1.replace( '\'', ' ');
+        if (dsnDiag != null) {
+            String s1 = dsnDiag.replace(',', ' ');
+            String s2 = s1.replace('\'', ' ');
             dsnDiag = s2;
         }
 
-        if( dsnAct != null ){
-            String s3 = dsnAct.replace( ',',' ');
-            String s4 = s3.replace( '\'', ' ');
+        if (dsnAct != null) {
+            String s3 = dsnAct.replace(',', ' ');
+            String s4 = s3.replace('\'', ' ');
             dsnAct = s4;
         }
 
-        if( dsnSts != null ){
-            String s5 = dsnSts.replace( ',',' ');
-            String s6 = s5.replace( '\'', ' ');
+        if (dsnSts != null) {
+            String s5 = dsnSts.replace(',', ' ');
+            String s6 = s5.replace('\'', ' ');
             dsnSts = s6;
         }
 
-        if( dsnMTA != null ){
-            String s7 = dsnMTA.replace( ',',' ');
-            String s8 = s7.replace( '\'', ' ');
+        if (dsnMTA != null) {
+            String s7 = dsnMTA.replace(',', ' ');
+            String s8 = s7.replace('\'', ' ');
             dsnMTA = s8;
         }
 
@@ -611,21 +547,14 @@ public abstract class AccountFileConverter implements AccountingProcessor {
         // We will assume that all yahoo's are the same
         //	i.e. yahoo.co.uk, yahoo.sg ... yahoo.com
 
-        if( domain.indexOf( "yahoo") > -1 )
-        {
-            if( bncCat.equalsIgnoreCase( "other") )
-            {
+        if (domain.indexOf("yahoo") > -1) {
+            if (bncCat.equalsIgnoreCase("other")) {
                 // Scan the dsnDiag for ...
-                if( dsnDiag.indexOf( "not listed" ) > -1 )
-                {
+                if (dsnDiag.indexOf("not listed") > -1) {
                     bncCat = "spam-related";
-                }
-                else if( dsnDiag.indexOf( "temporarily deferred" ) > -1 )
-                {
+                } else if (dsnDiag.indexOf("temporarily deferred") > -1) {
                     bncCat = "spam-related";
-                }
-                else if( dsnDiag.indexOf( "TS03" ) > - 1)
-                {
+                } else if (dsnDiag.indexOf("TS03") > -1) {
                     bncCat = "spam-related";
                 }
             }
@@ -634,71 +563,64 @@ public abstract class AccountFileConverter implements AccountingProcessor {
         // Decode the verp
         // sp core lib for decode verp
         // dont attempt to decode if its not a verp
-        if( orig.startsWith("v-"))
-        {
+        if (orig.startsWith("v-")) {
             try {
                 Verp lverp;
                 String v;
 
                 v = orig;
 
-                lverp = new Verp( v );
+                lverp = new Verp(v);
                 msgid = lverp.getMailingId();
                 recpid = lverp.getRecipientId();
                 retry = lverp.getRetryAttempt();
                 jobId = lverp.getJobId();
                 reportId = lverp.getReportId();
-            }
-            catch( Exception s ) {
-                System.out.println( "VERP: [" + orig + "]");
+            } catch (Exception s) {
+                System.out.println("VERP: [" + orig + "]");
                 s.printStackTrace();
             }
         }
 
 
         // Additional processing for bounces
-        try{
-            if( dsnAct.equals( "failed"))
-            {
-                envId = Integer.toString( setKeyWords( dsnDiag, bncCat));
+        try {
+            if (dsnAct.equals("failed")) {
+                envId = Integer.toString(setKeyWords(dsnDiag, bncCat));
 
-                if( envId.equals("0"))
-                {
-                    envId = Integer.toString( setDomainInfo( domain, bncCat));
+                if (envId.equals("0")) {
+                    envId = Integer.toString(setDomainInfo(domain, bncCat));
                 }
 
                 // special case for inactive mailboxes that are classified as 'other'
-                if( bncCat.equals( "other"))
-                {
-                    if( dsnDiag.indexOf( "extended inactivity" ) > 0)
-                    {
+                if (bncCat.equals("other")) {
+                    if (dsnDiag.indexOf("extended inactivity") > 0) {
                         bncCat = "inactive-mailbox";
                     }
                 }
             }
-        }
-        catch( Exception x ) {
+        } catch (Exception x) {
             x.printStackTrace();
         }
 
         // output the record to the csv
-        try{
+        try {
 
             // if no file to write to create it
-            if ( fp == null )
+            if (fp == null)
                 createFile();
 
             // Since it is possible to create a file larger that allowed by the file system
             // only allow 1MM (or maxLinesPerFile)
-            if( currentLine > maxLinesPerFile ){
+            if (currentLine > maxLinesPerFile) {
                 currentLine = 0;
                 //build new file name
                 closeFile();
                 createFile();
             }
 
-            if(ssID.equals("")){
-                fp.write( 		t + "," +
+            if (ssID.equals("")) {
+                fp.write(t + "," +
                         tq + "," +
                         envId + "," +
                         jobId + "," +
@@ -724,38 +646,35 @@ public abstract class AccountFileConverter implements AccountingProcessor {
 
                 currentLine++;
 
-                try{
+                try {
                     fp.flush();
-                }
-                catch (IOException s2)
-                {
-                    System.out.println( "Error Flushing Buffer");
+                } catch (IOException s2) {
+                    System.out.println("Error Flushing Buffer");
                     s2.printStackTrace();
 
                 }
-            }
-            else{
+            } else {
 
                 // if no file to write to create it
-                if ( fp2 == null )
+                if (fp2 == null)
                     createFileB2B();
 
                 // Since it is possible to create a file larger that allowed by the file system
                 // only allow 1MM (or maxLinesPerFile)
-                if( currentLineB2B > maxLinesPerFile ){
+                if (currentLineB2B > maxLinesPerFile) {
                     currentLineB2B = 0;
                     //build new file name
                     closeFileB2B();
                     createFileB2B();
                 }
 
-                fp2.write( 		t + "," +
+                fp2.write(t + "," +
                         tq + "," +
                         dlvFrom + "," +
                         dlvTo + "," +
                         orig + "," +
                         nRcpt + "," +
-                        r.replace(',',';') + "," +
+                        r.replace(',', ';') + "," +
                         tr + "," +
                         dsnAct + "," +
                         dsnSts + "," +
@@ -765,29 +684,24 @@ public abstract class AccountFileConverter implements AccountingProcessor {
                         mta + "," +
                         vmta + "," +
                         domain + "," +
-                        fromAddress.replace( ',',' ') + "," +
+                        fromAddress.replace(',', ' ') + "," +
                         ssID + "\n");
 
                 currentLineB2B++;
 
-                try{
+                try {
                     fp2.flush();
-                }
-                catch (IOException s2)
-                {
-                    System.out.println( "Error Flushing Buffer");
+                } catch (IOException s2) {
+                    System.out.println("Error Flushing Buffer");
                     s2.printStackTrace();
 
                 }
             }
-        }
-        catch ( IOException s )
-        {
-            System.out.println( "Unable to write to file Level:" + level);
+        } catch (IOException s) {
+            System.out.println("Unable to write to file Level:" + level);
             s.printStackTrace();
         }
         initRecord();
     }
-
-
 }
+
