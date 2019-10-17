@@ -31,7 +31,7 @@ public class AccountingFields {
             put("dsnDiag", "dsnDiag");
             put("dsnMta", "dsnMTA");
             put("srcType", "src.type");
-            put("srcMta", "src.mta");
+            put("srcMta", "mta");
             put("dlvType", "dlvThrough");
             put("dlvSourceIp", "dlvFrom");
             put("dlvDestinationIp", "dlvTo");
